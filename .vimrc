@@ -12,13 +12,11 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'tpope/vim-fugitive'
 
-" Plugin 'tmhedberg/SimpylFold'
+Plugin 'tmhedberg/SimpylFold'
 
 Plugin 'vim-scripts/indentpython.vim'
 
 Plugin 'scrooloose/nerdtree'
-
-" Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 Plugin 'w0rp/ale'
 
@@ -63,18 +61,15 @@ set showmatch
 set background=dark
 
 
-" set foldlevel=99
+set foldlevel=99
 " SimpylFold: show doc string
-" let g:SimpylFold_docstring_preview=1
+let g:SimpylFold_docstring_preview=1
 
 " PEP 8 for python
 au BufNewFile,BufRead *.py
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-    \ set textwidth=79 |
-    \ set expandtab |
-    \ set autoindent |
     \ set fileformat=unix
 
 set encoding=utf-8
@@ -82,6 +77,8 @@ set encoding=utf-8
 " YouCompleteMe settings
 " Ensure auto complete window go away when done
 let g:ycm_autoclose_preview_window_after_completion=1
+" let g:ycm_autoclose_completion_window_after_selecting=1
+
 " '<leader>-g' go to definition
 map <C-G>  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
@@ -91,8 +88,16 @@ let python_highlight_all=1
 set laststatus=2
 
 " Open NerdTree by default
-" autocmd vimenter * NERDTree
+"autocmd vimenter * NERDTree
+" Open NerdTree when no args to vi
+function! StartUp()
+    if 0 == argc()
+        NERDTree
+    end
+endfunction
+
+autocmd VimEnter * call StartUp()
 " Close VIM when NerdTree is the last window
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 let NERDTreeShowHidden=1
